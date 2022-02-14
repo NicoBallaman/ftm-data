@@ -1,0 +1,59 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: FantomToken
+    network: mainnet
+    source:
+      address: "0x4e15361fd6b4bb609fa63c81a2be19d873717870"
+      abi: FantomToken
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - UpdatedTokensPerEth
+        - Whitelisted
+        - TokensMinted
+        - RegisterContribution
+        - TokenExchangeRequested
+        - IcoDateUpdated
+        - RegisteredLockedTokens
+        - WalletUpdated
+        - OwnershipTransferProposed
+        - OwnershipTransferred
+        - AdminChange
+        - Transfer
+        - Approval
+      abis:
+        - name: FantomToken
+          file: ./abis/FantomToken.json
+      eventHandlers:
+        - event: UpdatedTokensPerEth(uint256)
+          handler: handleUpdatedTokensPerEth
+        - event: Whitelisted(indexed address,uint256)
+          handler: handleWhitelisted
+        - event: TokensMinted(indexed uint256,indexed address,uint256,uint256)
+          handler: handleTokensMinted
+        - event: RegisterContribution(indexed address,uint256,uint256,uint256)
+          handler: handleRegisterContribution
+        - event: TokenExchangeRequested(indexed address,uint256)
+          handler: handleTokenExchangeRequested
+        - event: IcoDateUpdated(uint256,uint256)
+          handler: handleIcoDateUpdated
+        - event: RegisteredLockedTokens(indexed address,indexed uint256,uint256,uint256)
+          handler: handleRegisteredLockedTokens
+        - event: WalletUpdated(address)
+          handler: handleWalletUpdated
+        - event: OwnershipTransferProposed(indexed address,indexed address)
+          handler: handleOwnershipTransferProposed
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: AdminChange(indexed address,bool)
+          handler: handleAdminChange
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+      file: ./src/mapping.ts
