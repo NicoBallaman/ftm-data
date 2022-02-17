@@ -64,3 +64,793 @@ export class ExampleEntity extends Entity {
     this.set("tokensPerEth", Value.fromBigInt(value));
   }
 }
+
+export class Admin extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("sender", Value.fromBytes(Bytes.empty()));
+    this.set("admin", Value.fromBytes(Bytes.empty()));
+    this.set("active", Value.fromBoolean(false));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Admin entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save Admin entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("Admin", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Admin | null {
+    return changetype<Admin | null>(store.get("Admin", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get sender(): Bytes {
+    let value = this.get("sender");
+    return value!.toBytes();
+  }
+
+  set sender(value: Bytes) {
+    this.set("sender", Value.fromBytes(value));
+  }
+
+  get admin(): Bytes {
+    let value = this.get("admin");
+    return value!.toBytes();
+  }
+
+  set admin(value: Bytes) {
+    this.set("admin", Value.fromBytes(value));
+  }
+
+  get active(): boolean {
+    let value = this.get("active");
+    return value!.toBoolean();
+  }
+
+  set active(value: boolean) {
+    this.set("active", Value.fromBoolean(value));
+  }
+}
+
+export class OwnershipTransfer extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("from", Value.fromBytes(Bytes.empty()));
+    this.set("to", Value.fromBytes(Bytes.empty()));
+    this.set("acepted", Value.fromBoolean(false));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save OwnershipTransfer entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save OwnershipTransfer entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("OwnershipTransfer", id.toString(), this);
+    }
+  }
+
+  static load(id: string): OwnershipTransfer | null {
+    return changetype<OwnershipTransfer | null>(
+      store.get("OwnershipTransfer", id)
+    );
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get from(): Bytes {
+    let value = this.get("from");
+    return value!.toBytes();
+  }
+
+  set from(value: Bytes) {
+    this.set("from", Value.fromBytes(value));
+  }
+
+  get to(): Bytes {
+    let value = this.get("to");
+    return value!.toBytes();
+  }
+
+  set to(value: Bytes) {
+    this.set("to", Value.fromBytes(value));
+  }
+
+  get acepted(): boolean {
+    let value = this.get("acepted");
+    return value!.toBoolean();
+  }
+
+  set acepted(value: boolean) {
+    this.set("acepted", Value.fromBoolean(value));
+  }
+}
+
+export class Transaction extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("from", Value.fromBytes(Bytes.empty()));
+    this.set("to", Value.fromBytes(Bytes.empty()));
+    this.set("spender", Value.fromBytes(Bytes.empty()));
+    this.set("ammount", Value.fromBigInt(BigInt.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Transaction entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save Transaction entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("Transaction", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Transaction | null {
+    return changetype<Transaction | null>(store.get("Transaction", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get from(): Bytes {
+    let value = this.get("from");
+    return value!.toBytes();
+  }
+
+  set from(value: Bytes) {
+    this.set("from", Value.fromBytes(value));
+  }
+
+  get to(): Bytes {
+    let value = this.get("to");
+    return value!.toBytes();
+  }
+
+  set to(value: Bytes) {
+    this.set("to", Value.fromBytes(value));
+  }
+
+  get spender(): Bytes {
+    let value = this.get("spender");
+    return value!.toBytes();
+  }
+
+  set spender(value: Bytes) {
+    this.set("spender", Value.fromBytes(value));
+  }
+
+  get ammount(): BigInt {
+    let value = this.get("ammount");
+    return value!.toBigInt();
+  }
+
+  set ammount(value: BigInt) {
+    this.set("ammount", Value.fromBigInt(value));
+  }
+}
+
+export class IcoDate extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("admin", Value.fromString(""));
+    this.set("uinxts", Value.fromBigInt(BigInt.zero()));
+    this.set("type", Value.fromString(""));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save IcoDate entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save IcoDate entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("IcoDate", id.toString(), this);
+    }
+  }
+
+  static load(id: string): IcoDate | null {
+    return changetype<IcoDate | null>(store.get("IcoDate", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get admin(): string {
+    let value = this.get("admin");
+    return value!.toString();
+  }
+
+  set admin(value: string) {
+    this.set("admin", Value.fromString(value));
+  }
+
+  get uinxts(): BigInt {
+    let value = this.get("uinxts");
+    return value!.toBigInt();
+  }
+
+  set uinxts(value: BigInt) {
+    this.set("uinxts", Value.fromBigInt(value));
+  }
+
+  get type(): string {
+    let value = this.get("type");
+    return value!.toString();
+  }
+
+  set type(value: string) {
+    this.set("type", Value.fromString(value));
+  }
+}
+
+export class TokenWallet extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("admin", Value.fromString(""));
+    this.set("wallet", Value.fromBytes(Bytes.empty()));
+    this.set("active", Value.fromBoolean(false));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save TokenWallet entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save TokenWallet entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("TokenWallet", id.toString(), this);
+    }
+  }
+
+  static load(id: string): TokenWallet | null {
+    return changetype<TokenWallet | null>(store.get("TokenWallet", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get admin(): string {
+    let value = this.get("admin");
+    return value!.toString();
+  }
+
+  set admin(value: string) {
+    this.set("admin", Value.fromString(value));
+  }
+
+  get wallet(): Bytes {
+    let value = this.get("wallet");
+    return value!.toBytes();
+  }
+
+  set wallet(value: Bytes) {
+    this.set("wallet", Value.fromBytes(value));
+  }
+
+  get active(): boolean {
+    let value = this.get("active");
+    return value!.toBoolean();
+  }
+
+  set active(value: boolean) {
+    this.set("active", Value.fromBoolean(value));
+  }
+}
+
+export class LockedTokens extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("account", Value.fromBytes(Bytes.empty()));
+    this.set("idx", Value.fromBigInt(BigInt.zero()));
+    this.set("tokens", Value.fromBigInt(BigInt.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save LockedTokens entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save LockedTokens entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("LockedTokens", id.toString(), this);
+    }
+  }
+
+  static load(id: string): LockedTokens | null {
+    return changetype<LockedTokens | null>(store.get("LockedTokens", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get account(): Bytes {
+    let value = this.get("account");
+    return value!.toBytes();
+  }
+
+  set account(value: Bytes) {
+    this.set("account", Value.fromBytes(value));
+  }
+
+  get idx(): BigInt {
+    let value = this.get("idx");
+    return value!.toBigInt();
+  }
+
+  set idx(value: BigInt) {
+    this.set("idx", Value.fromBigInt(value));
+  }
+
+  get tokens(): BigInt {
+    let value = this.get("tokens");
+    return value!.toBigInt();
+  }
+
+  set tokens(value: BigInt) {
+    this.set("tokens", Value.fromBigInt(value));
+  }
+
+  get term(): BigInt | null {
+    let value = this.get("term");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set term(value: BigInt | null) {
+    if (!value) {
+      this.unset("term");
+    } else {
+      this.set("term", Value.fromBigInt(<BigInt>value));
+    }
+  }
+}
+
+export class Contribution extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("wallet", Value.fromString(""));
+    this.set("account", Value.fromBytes(Bytes.empty()));
+    this.set("tokensIssued", Value.fromBigInt(BigInt.zero()));
+    this.set("ethContributed", Value.fromBigInt(BigInt.zero()));
+    this.set("ethReturned", Value.fromBigInt(BigInt.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Contribution entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save Contribution entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("Contribution", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Contribution | null {
+    return changetype<Contribution | null>(store.get("Contribution", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get wallet(): string {
+    let value = this.get("wallet");
+    return value!.toString();
+  }
+
+  set wallet(value: string) {
+    this.set("wallet", Value.fromString(value));
+  }
+
+  get account(): Bytes {
+    let value = this.get("account");
+    return value!.toBytes();
+  }
+
+  set account(value: Bytes) {
+    this.set("account", Value.fromBytes(value));
+  }
+
+  get tokensIssued(): BigInt {
+    let value = this.get("tokensIssued");
+    return value!.toBigInt();
+  }
+
+  set tokensIssued(value: BigInt) {
+    this.set("tokensIssued", Value.fromBigInt(value));
+  }
+
+  get ethContributed(): BigInt {
+    let value = this.get("ethContributed");
+    return value!.toBigInt();
+  }
+
+  set ethContributed(value: BigInt) {
+    this.set("ethContributed", Value.fromBigInt(value));
+  }
+
+  get ethReturned(): BigInt {
+    let value = this.get("ethReturned");
+    return value!.toBigInt();
+  }
+
+  set ethReturned(value: BigInt) {
+    this.set("ethReturned", Value.fromBigInt(value));
+  }
+
+  get tokensPerEth(): string | null {
+    let value = this.get("tokensPerEth");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set tokensPerEth(value: string | null) {
+    if (!value) {
+      this.unset("tokensPerEth");
+    } else {
+      this.set("tokensPerEth", Value.fromString(<string>value));
+    }
+  }
+}
+
+export class Whitelist extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("admin", Value.fromString(""));
+    this.set("account", Value.fromBytes(Bytes.empty()));
+    this.set("countWhitelisted", Value.fromBigInt(BigInt.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Whitelist entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save Whitelist entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("Whitelist", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Whitelist | null {
+    return changetype<Whitelist | null>(store.get("Whitelist", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get admin(): string {
+    let value = this.get("admin");
+    return value!.toString();
+  }
+
+  set admin(value: string) {
+    this.set("admin", Value.fromString(value));
+  }
+
+  get account(): Bytes {
+    let value = this.get("account");
+    return value!.toBytes();
+  }
+
+  set account(value: Bytes) {
+    this.set("account", Value.fromBytes(value));
+  }
+
+  get countWhitelisted(): BigInt {
+    let value = this.get("countWhitelisted");
+    return value!.toBigInt();
+  }
+
+  set countWhitelisted(value: BigInt) {
+    this.set("countWhitelisted", Value.fromBigInt(value));
+  }
+}
+
+export class TokensPerEth extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("admin", Value.fromString(""));
+    this.set("tokensPerEth", Value.fromBigInt(BigInt.zero()));
+    this.set("active", Value.fromBoolean(false));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save TokensPerEth entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save TokensPerEth entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("TokensPerEth", id.toString(), this);
+    }
+  }
+
+  static load(id: string): TokensPerEth | null {
+    return changetype<TokensPerEth | null>(store.get("TokensPerEth", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get admin(): string {
+    let value = this.get("admin");
+    return value!.toString();
+  }
+
+  set admin(value: string) {
+    this.set("admin", Value.fromString(value));
+  }
+
+  get tokensPerEth(): BigInt {
+    let value = this.get("tokensPerEth");
+    return value!.toBigInt();
+  }
+
+  set tokensPerEth(value: BigInt) {
+    this.set("tokensPerEth", Value.fromBigInt(value));
+  }
+
+  get active(): boolean {
+    let value = this.get("active");
+    return value!.toBoolean();
+  }
+
+  set active(value: boolean) {
+    this.set("active", Value.fromBoolean(value));
+  }
+}
+
+export class ExchangeRequest extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("account", Value.fromBytes(Bytes.empty()));
+    this.set("tokens", Value.fromBigInt(BigInt.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save ExchangeRequest entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save ExchangeRequest entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("ExchangeRequest", id.toString(), this);
+    }
+  }
+
+  static load(id: string): ExchangeRequest | null {
+    return changetype<ExchangeRequest | null>(store.get("ExchangeRequest", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get account(): Bytes {
+    let value = this.get("account");
+    return value!.toBytes();
+  }
+
+  set account(value: Bytes) {
+    this.set("account", Value.fromBytes(value));
+  }
+
+  get tokens(): BigInt {
+    let value = this.get("tokens");
+    return value!.toBigInt();
+  }
+
+  set tokens(value: BigInt) {
+    this.set("tokens", Value.fromBigInt(value));
+  }
+}
+
+export class Mint extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("mintType", Value.fromBigInt(BigInt.zero()));
+    this.set("admin", Value.fromString(""));
+    this.set("account", Value.fromBytes(Bytes.empty()));
+    this.set("tokens", Value.fromBigInt(BigInt.zero()));
+    this.set("term", Value.fromBigInt(BigInt.zero()));
+    this.set("whitelist", Value.fromString(""));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Mint entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save Mint entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("Mint", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Mint | null {
+    return changetype<Mint | null>(store.get("Mint", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get mintType(): BigInt {
+    let value = this.get("mintType");
+    return value!.toBigInt();
+  }
+
+  set mintType(value: BigInt) {
+    this.set("mintType", Value.fromBigInt(value));
+  }
+
+  get admin(): string {
+    let value = this.get("admin");
+    return value!.toString();
+  }
+
+  set admin(value: string) {
+    this.set("admin", Value.fromString(value));
+  }
+
+  get account(): Bytes {
+    let value = this.get("account");
+    return value!.toBytes();
+  }
+
+  set account(value: Bytes) {
+    this.set("account", Value.fromBytes(value));
+  }
+
+  get tokens(): BigInt {
+    let value = this.get("tokens");
+    return value!.toBigInt();
+  }
+
+  set tokens(value: BigInt) {
+    this.set("tokens", Value.fromBigInt(value));
+  }
+
+  get term(): BigInt {
+    let value = this.get("term");
+    return value!.toBigInt();
+  }
+
+  set term(value: BigInt) {
+    this.set("term", Value.fromBigInt(value));
+  }
+
+  get whitelist(): string {
+    let value = this.get("whitelist");
+    return value!.toString();
+  }
+
+  set whitelist(value: string) {
+    this.set("whitelist", Value.fromString(value));
+  }
+}
