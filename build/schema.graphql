@@ -1,5 +1,106 @@
-type ExampleEntity @entity {
+type Admin @entity {
   id: ID!
-  count: BigInt!
-  tokensPerEth: BigInt! # uint256
+  address: Bytes!
+  sender: Bytes!
+  active: Boolean!
+}
+
+type OwnershipTransfer @entity {
+  id: ID!
+  from: Bytes!
+  to: Bytes!
+  timestamp: BigInt!
+}
+
+type TokenWallet @entity {
+  id: ID!
+  address: Bytes!
+  sender: Bytes!
+  contract: FantomData!
+  timestamp: BigInt!
+}
+
+type Transaction @entity {
+  id: ID!
+  from: Bytes!
+  to: Bytes!
+  spender: Bytes!
+  value: BigInt!
+  timestamp: BigInt!
+}
+
+type TransactionApproval @entity {
+  id: ID!
+  owner: Bytes!
+  spender: Bytes!
+  value: BigInt!
+  timestamp: BigInt!
+}
+
+type FantomData @entity {
+  id: ID!
+  owner: Bytes!
+  wallet: TokenWallet!
+  tokensPerEth: TokensPerEthUpdated!
+}
+
+type IcoDate @entity {
+  id: ID!
+  sender: Bytes!
+  contract: FantomData!
+  unixts: BigInt!
+  type: BigInt!
+  timestamp: BigInt!
+}
+
+type LockedTokens @entity {
+  id: ID!
+  sender: Bytes!
+  account: Bytes!
+  idx: BigInt!
+  tokens: BigInt!
+  term: BigInt
+  timestamp: BigInt!
+}
+
+type ExchangeRequest @entity {
+  id: ID!
+  account: Bytes!
+  tokens: BigInt!
+  timestamp: BigInt!
+}
+
+type TokensPerEthUpdated @entity {
+  id: ID!
+  sender: Bytes!
+  contract: FantomData!
+  tokensPerEth: BigInt!
+  timestamp: BigInt!
+}
+
+type Contribution @entity {
+  id: ID!
+  wallet: TokenWallet!
+  account: Bytes!
+  tokensIssued: BigInt!
+  ethContributed: BigInt!
+  ethReturned: BigInt!
+  timestamp: BigInt!
+}
+
+type Whitelist @entity {
+  id: ID!
+  admin: Admin!
+  account: Bytes!
+  countWhitelisted: BigInt!
+}
+
+type Mint @entity {
+  id: ID!
+  mintType: BigInt!
+  sender: Bytes!
+  account: Whitelist!
+  tokens: BigInt!
+  term: BigInt!
+  whitelist: Whitelist!
 }

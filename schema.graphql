@@ -1,47 +1,7 @@
-"""
-contract Owned {
-    event OwnershipTransferProposed(address _from, address _to);
-    event OwnershipTransferred(address _from, address _to);
-    event AdminChange(address _admin, bool _status);
-}
-
-contract Wallet is Owned {
-    event WalletUpdated(address newWallet);
-}
-
-contract ERC20Interface {
-    event Transfer(address _from, address _to, uint _value);
-    event Approval(address _owner, address _spender, uint _value);
-}
-
-contract LockSlots is ERC20Token {
-    event RegisteredLockedTokens(address account, uint idx, uint tokens, uint term);
-}
-
-contract FantomIcoDates is Owned {
-    event IcoDateUpdated(uint id, uint unixts);
-}
-
-contract FantomToken is ERC20Token, Wallet, LockSlots, FantomIcoDates {
-    event Whitelisted(address account, uint countWhitelisted);
-    event UpdatedTokensPerEth(uint tokensPerEth);
-    event TokensMinted(uint mintType, address account, uint tokens, uint term);
-    event RegisterContribution(address account, uint tokensIssued, uint ethContributed, uint ethReturned);
-    event TokenExchangeRequested(address account, uint tokens);
-}
-
-"""
-
-type ExampleEntity @entity {
-  id: ID!
-  count: BigInt!
-  tokensPerEth: BigInt! # uint256
-}
-
 type Admin @entity {
   id: ID!
+  address: Bytes!
   sender: Bytes!
-  admin: Bytes!
   active: Boolean!
 }
 
@@ -49,7 +9,15 @@ type OwnershipTransfer @entity {
   id: ID!
   from: Bytes!
   to: Bytes!
-  acepted: Boolean!
+  timestamp: BigInt!
+}
+
+type TokenWallet @entity {
+  id: ID!
+  address: Bytes!
+  sender: Bytes!
+  contract: FantomData!
+  timestamp: BigInt!
 }
 
 type Transaction @entity {
@@ -57,34 +25,57 @@ type Transaction @entity {
   from: Bytes!
   to: Bytes!
   spender: Bytes!
-  ammount: BigInt!
+  value: BigInt!
+  timestamp: BigInt!
 }
 
-enum IcoDateType {
-  Start
-  End
+type TransactionApproval @entity {
+  id: ID!
+  owner: Bytes!
+  spender: Bytes!
+  value: BigInt!
+  timestamp: BigInt!
+}
+
+type FantomData @entity {
+  id: ID!
+  owner: Bytes!
+  wallet: TokenWallet!
+  tokensPerEth: TokensPerEthUpdated!
 }
 
 type IcoDate @entity {
   id: ID!
-  admin: Admin!
-  uinxts: BigInt!
-  type: IcoDateType!
-}
-
-type TokenWallet @entity {
-  id: ID!
-  admin: Admin!
-  wallet: Bytes!
-  active: Boolean!
+  sender: Bytes!
+  contract: FantomData!
+  unixts: BigInt!
+  type: BigInt!
+  timestamp: BigInt!
 }
 
 type LockedTokens @entity {
   id: ID!
+  sender: Bytes!
   account: Bytes!
   idx: BigInt!
   tokens: BigInt!
   term: BigInt
+  timestamp: BigInt!
+}
+
+type ExchangeRequest @entity {
+  id: ID!
+  account: Bytes!
+  tokens: BigInt!
+  timestamp: BigInt!
+}
+
+type TokensPerEthUpdated @entity {
+  id: ID!
+  sender: Bytes!
+  contract: FantomData!
+  tokensPerEth: BigInt!
+  timestamp: BigInt!
 }
 
 type Contribution @entity {
@@ -94,7 +85,7 @@ type Contribution @entity {
   tokensIssued: BigInt!
   ethContributed: BigInt!
   ethReturned: BigInt!
-  tokensPerEth: TokensPerEth
+  timestamp: BigInt!
 }
 
 type Whitelist @entity {
@@ -104,27 +95,12 @@ type Whitelist @entity {
   countWhitelisted: BigInt!
 }
 
-type TokensPerEth @entity {
-  id: ID!
-  admin: Admin!
-  tokensPerEth: BigInt!
-  active: Boolean!
-}
-
-type ExchangeRequest @entity {
-  id: ID!
-  account: Bytes!
-  tokens: BigInt!
-}
-
 type Mint @entity {
   id: ID!
   mintType: BigInt!
-  admin: Admin!
-  account: Bytes!
+  sender: Bytes!
+  account: Whitelist!
   tokens: BigInt!
   term: BigInt!
   whitelist: Whitelist!
 }
-
-
