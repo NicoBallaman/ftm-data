@@ -23,7 +23,7 @@ export function handleWhitelisted(event: Whitelisted): void {
     entity.tokensPerEth = event.params.tokensPerEth;
     entity.timestamp = event.block.timestamp;
     entity.save();
-    let fantomData = Commons.getTokenData(event.address, event.block.timestamp, event.transaction.from);
+    let fantomData = new Commons().getTokenData(event);
     fantomData.tokensPerEth = entity.id;
     fantomData.save();
     

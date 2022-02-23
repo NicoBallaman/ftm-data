@@ -13,7 +13,7 @@ export function handleWalletUpdated(event: WalletUpdated): void {
     entity.timestamp = event.block.timestamp;
     entity.sender = event.transaction.from;
     entity.save();
-    let fantomData = Commons.getTokenData(event.address, event.block.timestamp, event.transaction.from);
+    let fantomData = new Commons().getTokenData(event);
     fantomData.wallet = entity.id;
     fantomData.save();
   }

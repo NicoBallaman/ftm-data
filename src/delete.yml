@@ -1,0 +1,20 @@
+////// OK //////
+fantomData
+- wallet
+- tokensPerEth
+whitelist
+exchangeRequest
+
+////// NO DATA //////
+icoDate
+- contract
+
+
+tokenWallet
+- contract
+tokensPerEthUpdated
+- contract
+contributions
+- wallet
+mints
+- whitelists
