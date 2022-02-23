@@ -15,7 +15,7 @@ export class Commons {
   private _createInitialFantomData(event: ethereum.Event): FantomData {
     let contract = FantomToken.bind(event.address);
      //Save new tokensPerEth
-     let entityTokensPerEth = new TokensPerEthUpdated(event.transaction.from.toHex() + "-first");
+     let entityTokensPerEth = new TokensPerEthUpdated(Commons.buildID(event));
      entityTokensPerEth.sender = event.transaction.from;
      entityTokensPerEth.contract = event.address.toHex();
      entityTokensPerEth.tokensPerEth = contract.tokensPerEth();
