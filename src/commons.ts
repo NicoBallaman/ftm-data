@@ -22,15 +22,21 @@ export class Commons {
      entityTokensPerEth.timestamp = event.block.timestamp;
      entityTokensPerEth.save();
      //Save new icoDate start
-     let entityIcoDateStart = new IcoDate(event.address.toHex() + "-" + 1);
-    entityIcoDateStart.sender = event.transaction.from;
-    entityIcoDateStart.contract = event.address.toHex();
-    entityIcoDateStart.unixts = contract.dateMainStart();
-    entityIcoDateStart.type = BigInt.fromI32(1);
-    entityIcoDateStart.timestamp = event.block.timestamp;
-    entityIcoDateStart.save();
+     let entityIcoDateStart = IcoDate.load(event.address.toHex() + "-1");
+     if (!entityIcoDateStart) {
+      entityIcoDateStart = new IcoDate(event.address.toHex() + "-1");
+     }
+     entityIcoDateStart.sender = event.transaction.from;
+     entityIcoDateStart.contract = event.address.toHex();
+     entityIcoDateStart.unixts = contract.dateMainStart();
+     entityIcoDateStart.type = BigInt.fromI32(1);
+     entityIcoDateStart.timestamp = event.block.timestamp;
+     entityIcoDateStart.save();
      //Save new icoDate end
-     let entityIcoDateEnd = new IcoDate(event.address.toHex() + "-" + 2);
+     let entityIcoDateEnd = IcoDate.load(event.address.toHex() + "-2");
+     if (!entityIcoDateEnd) {
+      entityIcoDateEnd = new IcoDate(event.address.toHex() + "-2");
+     }
     entityIcoDateEnd.sender = event.transaction.from;
     entityIcoDateEnd.contract = event.address.toHex();
     entityIcoDateEnd.unixts = contract.dateMainEnd();
