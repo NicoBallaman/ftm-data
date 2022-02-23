@@ -38,7 +38,7 @@ export class Commons {
     entityIcoDateEnd.timestamp = event.block.timestamp;
     entityIcoDateEnd.save();
      //Save FantomData
-     let entity = new FantomData('1');
+     let entity = new FantomData(event.address.toHex());
      entity.owner = event.transaction.from;
      entity.wallet = contract.wallet.toString();
      entity.tokensPerEth = entityTokensPerEth.id;

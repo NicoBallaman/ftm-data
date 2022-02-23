@@ -45,6 +45,7 @@ export function handleWhitelisted(event: Whitelisted): void {
     entity.sender = event.transaction.from;
     entity.term = event.params.term;
     entity.tokens = event.params.tokens;
+    entity.whitelist = event.params.account.toHex();
     entity.save();
   }
   
@@ -52,7 +53,7 @@ export function handleWhitelisted(event: Whitelisted): void {
     //event RegisterContribution(address account, uint tokensIssued, uint ethContributed, uint ethReturned);
     let entity = new Contribution(Commons.buildID(event));
     let contract = FantomToken.bind(event.address);
-    entity.wallet = contract.wallet.toString();
+    entity.wallet = contract.wallet().toHex();
     entity.account = event.params.account;
     entity.tokensIssued = event.params.tokensIssued;
     entity.ethContributed = event.params.ethContributed;
