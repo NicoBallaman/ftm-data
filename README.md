@@ -8,7 +8,7 @@ We develop a subgraph composed by [fantom](https://fantom.foundation) smart cont
 
 ![1111111111](https://user-images.githubusercontent.com/35499273/155815619-eb0896c1-ea32-4c0a-ba81-d999ae009e68.jpg)
 
-With the subgraph created, we handle all events edited from this contract and save in our own structure as shown in the following diagram.
+With the subgraph created, we handle all events emited from this contract and save in our own structure as shown in the following diagram.
 
 ![22222222](https://user-images.githubusercontent.com/35499273/155815629-0f8ab19f-2ec7-4aba-b367-ff4440f23cad.jpg)
 
